@@ -19,9 +19,19 @@ async def on_ready():
     print(f'{bot.user.name} olarak giriş yapıldı!')
 
 @bot.command(name='yardım')
-async def kredi_goster(ctx):
-    await ctx.send(f"!kredi - Botun kredi bakiyesini gösterir.\n"
-                   f"!krediekle <miktar> - Botun kredi bakiyesine miktar ekler (Yönetici izni gerektirir).")
+async def yardim(ctx):
+    await ctx.send("**Kredi Sistemi Komutları:**\n"
+                   "`!kredi` - Güncel kredi bakiyenizi gösterir.\n"
+                   "`!satınalımrehberi` - Satın alabileceğiniz ürünlerin listesini gösterir.\n"
+                   "`!satınal <ürün numarası>` - Belirtilen ürün numarasındaki ürünü satın alır.\n")
+
+@bot.command(name='satınalımrehberi')
+async def alimrehberi(ctx):
+    await ctx.send(f"1 - TEMA Vakfı'na 100 TL bağış yönlendir (10 kredi)\n"
+                   f"2 - ÇEVKO Vakfı'na 100 TL bağış yönlendir (10 kredi)\n"
+                   f"3 - Bir ağaç fidanı dikilmesini sağla (14 kredi)\n"
+                   f"4 - Bir güneş paneli kurulmasını sağla (20 kredi)\n"
+                    f"5 - Bir su kuyusu açılmasını sağla (50 kredi)\n")
 
 @bot.command(name='kredi')
 async def kredi_goster(ctx):
@@ -42,13 +52,42 @@ async def kredi_ekle_error(ctx, error):
     else:
         await ctx.send("Bir hata oluştu.")
 
-@bot.command(name='SatınAl')
+@bot.command(name='satınal')
 async def kredi_ekle(ctx, urun: int):
+
     if urun == 1:
-        await ctx.send(f"**{5}** kredi karşılığında bir ağaç fidanı dikilmesini sağladınız. Desteğiniz için teşekkür ederiz. Yeni bakiye: **{bot.kredi}**")
-        kredi -= 5
+        if bot.kredi < 10:
+            await ctx.send(f"Yeterli krediniz yok. Şuanki bakiye: **{bot.kredi}**")
+            return
+        bot.kredi -= 10
+        await ctx.send(f"**{10}** kredi karşılığında bir TEMA Vakfı'na 100 TL değerinde bağış yönlendirdiniz. Desteğiniz için teşekkür ederiz. Yeni bakiye: **{bot.kredi}**")
+
     elif urun == 2:
-        await ctx.send(f"**{20}** kredi karşılığında bir sokak hayvanı için mama bağışında bulundunuz. Desteğiniz için teşekkür ederiz. Yeni bakiye: **{bot.kredi}**")
-        kredi -= 20
+        if bot.kredi < 10:
+            await ctx.send(f"Yeterli krediniz yok. Şuanki bakiye: **{bot.kredi}**")
+            return
+        bot.kredi -= 10
+        await ctx.send(f"**{10}** kredi karşılığında bir ÇEVKO Vakfı'na 100 TL değerinde bağış yönlendirdiniz. Desteğiniz için teşekkür ederiz. Yeni bakiye: **{bot.kredi}**")
+
+    elif urun == 3:
+        if bot.kredi < 14:
+            await ctx.send(f"Yeterli krediniz yok. Şuanki bakiye: **{bot.kredi}**")
+            return
+        bot.kredi -= 14
+        await ctx.send(f"**{14}** kredi karşılığında bir ağaç fidanı dikilmesini sağladınız. Desteğiniz için teşekkür ederiz. Yeni bakiye: **{bot.kredi}**")
+
+    elif urun == 4:
+        if bot.kredi < 20:
+            await ctx.send(f"Yeterli krediniz yok. Şuanki bakiye: **{bot.kredi}**")
+            return
+        bot.kredi -= 20
+        await ctx.send(f"**{20}** kredi karşılığında bir güneş paneli kurulmasını sağladınız. Desteğiniz için teşekkür ederiz. Yeni bakiye: **{bot.kredi}**")
+
+    elif urun == 5:
+        if bot.kredi < 50:
+            await ctx.send(f"Yeterli krediniz yok. Şuanki bakiye: **{bot.kredi}**")
+            return
+        bot.kredi -= 50
+        await ctx.send(f"**{50}** kredi karşılığında bir su kuyusu açılmasını sağladınız. Desteğiniz için teşekkür ederiz. Yeni bakiye: **{bot.kredi}**")
 
 bot.run(TOKEN)

@@ -52,6 +52,11 @@ async def kredi_ekle_error(ctx, error):
     else:
         await ctx.send("Bir hata oluştu.")
 
+@bot.command(name='referans')
+async def kredi_ekle(ctx, user: str):
+    bot.kredi += 5
+    await ctx.send(f"**{user}** kişisi referans olarak gösterildi. Bakiye **{5}** arttırıldı. Yeni bakiye: **{bot.kredi}**")
+
 @bot.command(name='satınal')
 async def kredi_ekle(ctx, urun: int):
 
@@ -90,4 +95,6 @@ async def kredi_ekle(ctx, urun: int):
         bot.kredi -= 50
         await ctx.send(f"**{50}** kredi karşılığında bir su kuyusu açılmasını sağladınız. Desteğiniz için teşekkür ederiz. Yeni bakiye: **{bot.kredi}**")
 
+    else:
+        await ctx.send("Geçersiz ürün numarası. `!satınalımrehberi` komutunu kullanarak geçerli ürün numaralarını öğrenebilirsiniz.")
 bot.run(TOKEN)

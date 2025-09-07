@@ -42,4 +42,13 @@ async def kredi_ekle_error(ctx, error):
     else:
         await ctx.send("Bir hata oluştu.")
 
+@bot.command(name='SatınAl')
+async def kredi_ekle(ctx, urun: int):
+    if urun == 1:
+        await ctx.send(f"**{5}** kredi karşılığında bir ağaç fidanı dikilmesini sağladınız. Desteğiniz için teşekkür ederiz. Yeni bakiye: **{bot.kredi}**")
+        kredi -= 5
+    elif urun == 2:
+        await ctx.send(f"**{20}** kredi karşılığında bir sokak hayvanı için mama bağışında bulundunuz. Desteğiniz için teşekkür ederiz. Yeni bakiye: **{bot.kredi}**")
+        kredi -= 20
+
 bot.run(TOKEN)

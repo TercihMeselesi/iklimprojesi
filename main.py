@@ -22,6 +22,7 @@ async def on_ready():
 async def yardim(ctx):
     await ctx.send("**Kredi Sistemi Komutları:**\n"
                    "`!kredi` - Güncel kredi bakiyenizi gösterir.\n"
+                    "`!referans <kullanıcı adı>` - Belirtilen kullanıcıyı referans olarak göstererek ve 5 kredi kazandırırsınız.\n"
                    "`!satınalımrehberi` - Satın alabileceğiniz ürünlerin listesini gösterir.\n"
                    "`!satınal <ürün numarası>` - Belirtilen ürün numarasındaki ürünü satın alır.\n")
 
@@ -35,7 +36,7 @@ async def alimrehberi(ctx):
 
 @bot.command(name='kredi')
 async def kredi_goster(ctx):
-    await ctx.send(f"Botun güncel kredi bakiyesi: **{bot.kredi}**")
+    await ctx.send(f"Güncel kredi bakiyesi: **{bot.kredi}**")
 
 @bot.command(name='krediekle')
 @commands.has_permissions(administrator=True)
